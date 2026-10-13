@@ -2,8 +2,8 @@
 
 A dynamic personal portfolio built with Node.js + Express.
 
-- **Home page**: your name, role, about, and skills, loaded from `data/profile.json`
-- **Projects**: loaded from `data/projects.json`, with tag filters
+- **Home page**: your name, role, about, and skills, loaded from `public/data/profile.json`
+- **Projects**: loaded from `public/data/projects.json`, with tag filters
 - **Contact form**: messages are validated and saved on the server (with rate limiting and spam protection)
 - **Admin inbox** at `/admin.html`: read, mark, and delete messages (password protected)
 - Light and dark mode, and a layout that works on phones
@@ -29,10 +29,10 @@ All content is loaded from JSON files at request time, so edit a file and refres
 
 | What | Where |
 |---|---|
-| Name, roles (typing effect), about, stats, skills, education, links | `data/profile.json` |
-| Work experience timeline | `data/experience.json` |
-| Projects (with category filter and status badge) | `data/projects.json` |
-| Certifications | `data/certifications.json` |
+| Name, roles (typing effect), about, stats, skills, education, links | `public/data/profile.json` |
+| Work experience timeline | `public/data/experience.json` |
+| Projects (with category filter and status badge) | `public/data/projects.json` |
+| Certifications | `public/data/certifications.json` |
 | Colors and fonts | `public/styles.css` (`:root` variables) |
 
 ## API
@@ -48,7 +48,16 @@ All content is loaded from JSON files at request time, so edit a file and refres
 | PATCH | `/api/admin/messages/:id` | Mark read/unread `{ read: true }` |
 | DELETE | `/api/admin/messages/:id` | Delete a message |
 
-## Deploy (free) on Render
+## Live site (GitHub Pages)
+
+Every push to `main` publishes the site automatically via `.github/workflows/pages.yml`.
+GitHub Pages is static hosting, so on the live site:
+
+- content is read straight from `public/data/*.json`
+- the contact form opens the visitor's email app with their message filled in
+- the admin inbox (`admin.html`) is not published; it only works with the Node server
+
+## Deploy with the Node server (optional, e.g. Render)
 
 1. Push this folder to a GitHub repository.
 2. On https://render.com create a **New → Web Service** and pick the repo.

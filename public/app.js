@@ -108,6 +108,7 @@ function renderProfile(p) {
   $("#availability").textContent = p.availability || "Available";
   $("#tagline").textContent = p.tagline;
   $("#footer-name").textContent = p.name;
+  contactEmail = p.email || "";
   $("#year").textContent = new Date().getFullYear();
 
   $("#social").replaceChildren(
@@ -235,22 +236,58 @@ function initScrollEffects() {
 }
 
 // ---------- contact form ----------
+let contactEmail = "";
+
+function validateContact({ name, email, message }) {
+  const errors = {};
+  if (!name || name.trim().length < 2) errors.name = "Please enter your name.";
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "Please enter a valid email.";
+  if (!message || message.trim().length < 10) errors.message = "Message should be at least 10 characters.";
+  return errors;
+}
+
+// On static hosting (GitHub Pages) there is no server, so open the visitor's email app instead.
+function sendByEmail({ name, email, message }) {
+  const subject = `Portfolio message from ${name.trim()}`;
+  const body = `${message.trim()}\n\n— ${name.trim()} (${email.trim()})`;
+  location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 $("#contact-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = e.target;
   const status = $("#form-status");
   const button = form.querySelector("button");
+  const fields = Object.fromEntries(new FormData(form));
   form.querySelectorAll(".error").forEach((s) => (s.textContent = ""));
   status.className = "";
+
+  const errors = validateContact(fields);
+  if (Object.keys(errors).length) {
+    for (const [field, msg] of Object.entries(errors)) {
+      form.querySelector(`.error[data-for="${field}"]`).textContent = msg;
+    }
+    status.className = "fail";
+    status.textContent = "Please fix the highlighted fields.";
+    return;
+  }
+
   status.textContent = "Sending…";
   button.disabled = true;
 
   try {
-    const res = await fetch("/api/contact", {
+    const res = await fetch("api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      body: JSON.stringify(fields),
     });
+    // 404/405 means there is no backend here: fall back to email.
+    if ([404, 405, 501].includes(res.status) && contactEmail) {
+      sendByEmail(fields);
+      status.className = "ok";
+      status.textContent = "Opening your email app with your message…";
+      return;
+    }
     const data = await res.json();
     if (res.ok) {
       form.reset();
@@ -275,10 +312,11 @@ $("#contact-form").addEventListener("submit", async (e) => {
 // ---------- boot ----------
 (async function init() {
   const [profile, experience, projects, certs] = await Promise.allSettled([
-    getJson("/api/profile"),
-    getJson("/api/experience"),
-    getJson("/api/projects"),
-    getJson("/api/certifications"),
+    // Relative paths so the site works both at the domain root and under /portfolio/ on GitHub Pages.
+    getJson("data/profile.json"),
+    getJson("data/experience.json"),
+    getJson("data/projects.json"),
+    getJson("data/certifications.json"),
   ]);
 
   if (profile.status === "fulfilled") renderProfile(profile.value);

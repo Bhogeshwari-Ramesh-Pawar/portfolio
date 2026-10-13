@@ -5,8 +5,10 @@ const crypto = require("crypto");
 
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "change-me";
-const DATA_DIR = path.join(__dirname, "data");
-const MESSAGES_FILE = path.join(DATA_DIR, "messages.json");
+// Site content lives in public/data so GitHub Pages can serve it as static files.
+// Messages stay in data/, which is never served publicly.
+const CONTENT_DIR = path.join(__dirname, "public", "data");
+const MESSAGES_FILE = path.join(__dirname, "data", "messages.json");
 
 const app = express();
 app.use(express.json({ limit: "20kb" }));
@@ -35,6 +37,7 @@ function updateMessages(fn) {
   const next = writeQueue.then(async () => {
     const messages = await readJson(MESSAGES_FILE, []);
     const result = fn(messages);
+    await fs.mkdir(path.dirname(MESSAGES_FILE), { recursive: true });
     await writeJson(MESSAGES_FILE, messages);
     return result;
   });
@@ -51,7 +54,7 @@ for (const [route, file, fallback] of [
 ]) {
   app.get(route, async (req, res, next) => {
     try {
-      res.json(await readJson(path.join(DATA_DIR, file), fallback));
+      res.json(await readJson(path.join(CONTENT_DIR, file), fallback));
     } catch (err) {
       next(err);
     }
@@ -60,7 +63,7 @@ for (const [route, file, fallback] of [
 
 app.get("/api/projects", async (req, res, next) => {
   try {
-    const projects = await readJson(path.join(DATA_DIR, "projects.json"), []);
+    const projects = await readJson(path.join(CONTENT_DIR, "projects.json"), []);
     const { category, tag } = req.query;
     res.json(
       projects.filter(
