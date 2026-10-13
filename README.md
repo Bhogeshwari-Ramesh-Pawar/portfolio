@@ -33,7 +33,6 @@ All content is loaded from JSON files at request time, so edit a file and refres
 | Work experience timeline | `data/experience.json` |
 | Projects (with category filter and status badge) | `data/projects.json` |
 | Certifications | `data/certifications.json` |
-| Resume download button | put the PDF in `public/` and set `"resumeUrl": "/your-file.pdf"` in `profile.json` |
 | Colors and fonts | `public/styles.css` (`:root` variables) |
 
 ## API

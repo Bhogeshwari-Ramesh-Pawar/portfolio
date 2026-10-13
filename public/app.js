@@ -114,12 +114,6 @@ function renderProfile(p) {
     ...(p.links || []).map((l) => el("a", { href: l.url, target: "_blank", rel: "noopener" }, l.label))
   );
 
-  if (p.resumeUrl) {
-    const btn = $("#resume-btn");
-    btn.href = p.resumeUrl;
-    btn.hidden = false;
-  }
-
   $("#stats").replaceChildren(
     ...(p.stats || []).map((s) => el("div", { class: "stat reveal" }, [el("b", {}, s.value), el("span", {}, s.label)]))
   );
