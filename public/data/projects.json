@@ -1,23 +1,23 @@
 [
   {
     "title": "CyberUnify",
-    "subtitle": "Unified SOC dashboard with AI-driven risk scoring",
-    "description": "Owned the backend: log extraction, normalization and structuring. Integrated Wazuh, ELK and other SOC tools through their APIs into one dashboard, and automated ISO compliance reports and a third-party risk-assessment module.",
+    "subtitle": "Unified SOC dashboard: connect any security tool, see every log in one place",
+    "description": "Analysts connect any SOC tool through Elasticsearch, Splunk, REST APIs, webhooks, syslog (CEF / key=value) or log files, with presets for Wazuh, ELK, Splunk, Suricata, FortiGate, Cloudflare, CloudSEK, GTB DLP and miniOrange. Logs are mapped to one schema and searched in a single explorer, so one query follows an attacker across tools. Adds explainable risk scoring, ISO 27001 reporting and vendor risk assessment.",
     "category": "SOC",
-    "team": "Team of 2",
+    "team": "Team of 2 · rebuilt independently",
     "status": "Completed",
-    "tags": ["Python", "REST APIs", "Wazuh", "ELK"],
-    "link": ""
+    "tags": ["Python", "FastAPI", "Wazuh", "ELK", "Splunk", "Syslog"],
+    "link": "https://github.com/Bhogeshwari-Ramesh-Pawar/cyberunify"
   },
   {
     "title": "CyberNet",
-    "subtitle": "AI-augmented SAST vulnerability analyzer",
-    "description": "Built the Python backend for source-code vulnerability scanning and results processing, with an AI layer that prioritizes findings. Coordinated backend, frontend and AI work across the team.",
+    "subtitle": "AI-prioritized static code security scanner (SAST)",
+    "description": "Paste code to find vulnerabilities and leaked secrets. Python gets AST taint analysis that traces user input into dangerous calls; JavaScript, PHP and Java use 70 rules with light taint tracking. A logistic-regression model ranks findings by how likely they are to be real (89% accuracy in cross-validation) and explains each score. Maps to CWE and OWASP Top 10 and exports SARIF.",
     "category": "AppSec",
-    "team": "Team of 4",
+    "team": "Team of 4 · rebuilt independently",
     "status": "Completed",
-    "tags": ["Python", "SAST", "AI"],
-    "link": ""
+    "tags": ["Python", "SAST", "Machine learning", "OWASP"],
+    "link": "https://github.com/Bhogeshwari-Ramesh-Pawar/cybernet"
   },
   {
     "title": "DPDPA Compliance Platform v2",
