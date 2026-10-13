@@ -246,11 +246,26 @@ function validateContact({ name, email, message }) {
   return errors;
 }
 
-// On static hosting (GitHub Pages) there is no server, so open the visitor's email app instead.
-function sendByEmail({ name, email, message }) {
-  const subject = `Portfolio message from ${name.trim()}`;
-  const body = `${message.trim()}\n\n— ${name.trim()} (${email.trim()})`;
-  location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+// On static hosting (GitHub Pages) there is no server, so deliver the message to my
+// inbox through FormSubmit (https://formsubmit.co), a free form-to-email service.
+async function sendViaFormSubmit({ name, email, message, website }) {
+  const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(contactEmail)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({
+      name: name.trim(),
+      email: email.trim(),
+      message: message.trim(),
+      _subject: `Portfolio message from ${name.trim()}`,
+      _replyto: email.trim(),
+      _template: "table",
+      _honey: website || "",
+    }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || String(data.success) !== "true") {
+    throw new Error(data.message || "Message could not be sent.");
+  }
 }
 
 $("#contact-form").addEventListener("submit", async (e) => {
@@ -281,11 +296,17 @@ $("#contact-form").addEventListener("submit", async (e) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(fields),
     });
-    // 404/405 means there is no backend here: fall back to email.
+    // 404/405 means there is no backend here (GitHub Pages): send by email instead.
     if ([404, 405, 501].includes(res.status) && contactEmail) {
-      sendByEmail(fields);
-      status.className = "ok";
-      status.textContent = "Opening your email app with your message…";
+      try {
+        await sendViaFormSubmit(fields);
+        form.reset();
+        status.className = "ok";
+        status.textContent = "Thanks! Your message was sent. I'll get back to you soon.";
+      } catch {
+        status.className = "fail";
+        status.textContent = `Sorry, that didn't go through. Please email me at ${contactEmail}.`;
+      }
       return;
     }
     const data = await res.json();
