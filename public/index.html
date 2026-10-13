@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bhogeshwari Pawar · Cybersecurity Engineer</title>
+  <meta name="description" content="Portfolio of Bhogeshwari Pawar: cybersecurity engineer focused on SOC operations, threat hunting, VAPT and DPDPA privacy compliance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="logo"><span class="logo-mark" id="logo-mark">BP</span><span id="logo-name">Portfolio</span></a>
+      <nav id="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#certifications">Certs</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle light/dark mode">◐</button>
+        <button id="menu-toggle" class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero container" id="top">
+      <div class="hero-text">
+        <p class="status-pill"><span class="dot"></span><span id="availability">Available</span></p>
+        <h1>Hi, I'm <span class="accent" id="name">…</span></h1>
+        <p class="typed mono"><span class="prompt">&gt;</span> <span id="typed"></span><span class="caret">▌</span></p>
+        <p class="lead" id="tagline"></p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn">View my work</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+          <a href="#" class="btn btn-ghost" id="resume-btn" hidden download>Download resume</a>
+        </div>
+        <div class="social" id="social"></div>
+      </div>
+
+      <div class="terminal" aria-hidden="true">
+        <div class="term-bar"><span></span><span></span><span></span><em>~/whoami</em></div>
+        <pre class="term-body mono" id="terminal"></pre>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="container stats" id="stats" aria-label="Highlights"></section>
+
+    <!-- ABOUT -->
+    <section id="about" class="container section">
+      <p class="kicker mono">01 · about</p>
+      <h2>About me</h2>
+      <div class="about-grid">
+        <div id="about-text" class="about-text"></div>
+        <aside class="card about-card">
+          <h3>Education</h3>
+          <div id="education"></div>
+          <h3>Beyond the classroom</h3>
+          <ul id="extras" class="ticks"></ul>
+          <p class="muted small" id="location"></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="container section">
+      <p class="kicker mono">02 · experience</p>
+      <h2>Where I've worked</h2>
+      <ol class="timeline" id="timeline"><li class="muted">Loading…</li></ol>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="container section">
+      <p class="kicker mono">03 · projects</p>
+      <div class="section-head">
+        <h2>Things I've built</h2>
+        <div class="filters" id="filters" role="group" aria-label="Filter projects by category"></div>
+      </div>
+      <div class="grid" id="project-grid"><p class="muted">Loading projects…</p></div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="container section">
+      <p class="kicker mono">04 · skills</p>
+      <h2>Toolkit</h2>
+      <div class="skills-grid" id="skills-grid"></div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="container section">
+      <p class="kicker mono">05 · certifications</p>
+      <h2>Certifications</h2>
+      <div class="cert-grid" id="cert-grid"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container section">
+      <p class="kicker mono">06 · contact</p>
+      <h2>Contact</h2>
+      <div class="contact-wrap">
+        <form id="contact-form" class="card" novalidate>
+          <label>Name
+            <input name="name" autocomplete="name" required />
+            <small class="error" data-for="name"></small>
+          </label>
+          <label>Email
+            <input name="email" type="email" autocomplete="email" required />
+            <small class="error" data-for="email"></small>
+          </label>
+          <label>Message
+            <textarea name="message" rows="5" required></textarea>
+            <small class="error" data-for="message"></small>
+          </label>
+          <!-- honeypot: hidden from people, bots fill it in -->
+          <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit" class="btn">Send message</button>
+          <p id="form-status" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <p>© <span id="year"></span> <span id="footer-name"></span> · Built with Node.js &amp; Express</p>
+    <p class="mono small"><a href="#top">↑ back to top</a></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

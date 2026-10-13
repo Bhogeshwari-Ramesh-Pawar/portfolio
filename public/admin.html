@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Inbox · Admin</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .msg { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; }
+    .msg.unread { border-left: 4px solid var(--accent); }
+    .msg header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+    .msg p { margin: 0 0 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .msg .actions { display: flex; gap: 8px; }
+    .small { padding: 6px 14px; font-size: 0.85rem; }
+    #login { display: flex; gap: 8px; max-width: 420px; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="logo">← Back to site</a>
+      <nav><button id="logout" class="btn btn-ghost small" hidden>Log out</button></nav>
+    </div>
+  </header>
+
+  <main class="container section" style="border-top:0">
+    <h2>Messages <span id="count" class="muted"></span></h2>
+
+    <form id="login">
+      <input type="password" name="password" placeholder="Admin password" autocomplete="current-password" required />
+      <button class="btn">Open</button>
+    </form>
+    <p id="status" class="muted"></p>
+
+    <div id="inbox"></div>
+  </main>
+
+  <script>
+    const inbox = document.getElementById("inbox");
+    const status = document.getElementById("status");
+    let password = sessionStorage.getItem("adminPassword") || "";
+
+    async function api(path, opts = {}) {
+      const res = await fetch(path, {
+        ...opts,
+        headers: { "Content-Type": "application/json", "x-admin-password": password, ...(opts.headers || {}) },
+      });
+      const data = await res.json();
+      if (!res.ok) throw Object.assign(new Error(data.error || "Request failed"), { status: res.status });
+      return data;
+    }
+
+    function card(m) {
+      const div = document.createElement("article");
+      div.className = "msg" + (m.read ? "" : " unread");
+      const head = document.createElement("header");
+      const who = document.createElement("strong");
+      who.textContent = `${m.name} `;
+      const mail = document.createElement("a");
+      mail.href = `mailto:${m.email}`;
+      mail.textContent = m.email;
+      who.append(mail);
+      const when = document.createElement("span");
+      when.className = "muted";
+      when.textContent = new Date(m.createdAt).toLocaleString();
+      head.append(who, when);
+
+      const body = document.createElement("p");
+      body.textContent = m.message;
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+      const toggle = document.createElement("button");
+      toggle.className = "btn btn-ghost small";
+      toggle.textContent = m.read ? "Mark unread" : "Mark read";
+      toggle.onclick = async () => { await api(`/api/admin/messages/${m.id}`, { method: "PATCH", body: JSON.stringify({ read: !m.read }) }); load(); };
+      const del = document.createElement("button");
+      del.className = "btn btn-ghost small";
+      del.textContent = "Delete";
+      del.onclick = async () => { if (confirm("Delete this message?")) { await api(`/api/admin/messages/${m.id}`, { method: "DELETE" }); load(); } };
+      actions.append(toggle, del);
+
+      div.append(head, body, actions);
+      return div;
+    }
+
+    async function load() {
+      try {
+        const msgs = await api("/api/admin/messages");
+        sessionStorage.setItem("adminPassword", password);
+        document.getElementById("login").hidden = true;
+        document.getElementById("logout").hidden = false;
+        const unread = msgs.filter((m) => !m.read).length;
+        document.getElementById("count").textContent = `(${msgs.length} total, ${unread} unread)`;
+        status.textContent = msgs.length ? "" : "No messages yet.";
+        inbox.replaceChildren(...msgs.map(card));
+      } catch (err) {
+        if (err.status === 401) {
+          sessionStorage.removeItem("adminPassword");
+          document.getElementById("login").hidden = false;
+          status.textContent = password ? "Wrong password." : "";
+        } else {
+          status.textContent = err.message;
+        }
+      }
+    }
+
+    document.getElementById("login").onsubmit = (e) => {
+      e.preventDefault();
+      password = e.target.password.value;
+      load();
+    };
+    document.getElementById("logout").onclick = () => {
+      sessionStorage.removeItem("adminPassword");
+      location.reload();
+    };
+
+    if (password) load();
+  </script>
+</body>
+</html>

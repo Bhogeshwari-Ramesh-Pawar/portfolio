@@ -1,0 +1,72 @@
+[
+  {
+    "title": "CyberUnify",
+    "subtitle": "Unified SOC dashboard with AI-driven risk scoring",
+    "description": "Owned the backend: log extraction, normalization and structuring. Integrated Wazuh, ELK and other SOC tools through their APIs into one dashboard, and automated ISO compliance reports and a third-party risk-assessment module.",
+    "category": "SOC",
+    "team": "Team of 2",
+    "status": "Completed",
+    "tags": ["Python", "REST APIs", "Wazuh", "ELK"],
+    "link": ""
+  },
+  {
+    "title": "CyberNet",
+    "subtitle": "AI-augmented SAST vulnerability analyzer",
+    "description": "Built the Python backend for source-code vulnerability scanning and results processing, with an AI layer that prioritizes findings. Coordinated backend, frontend and AI work across the team.",
+    "category": "AppSec",
+    "team": "Team of 4",
+    "status": "Completed",
+    "tags": ["Python", "SAST", "AI"],
+    "link": ""
+  },
+  {
+    "title": "DPDPA Compliance Platform v2",
+    "subtitle": "Final-year project",
+    "description": "An engine for real-time data asset discovery, continuous privacy verification and automated DPDPA risk scoring across hybrid endpoints, extending our v1 checklist tool.",
+    "category": "GRC",
+    "team": "Team of 4",
+    "status": "In progress",
+    "tags": ["Python", "DPDPA", "Risk scoring"],
+    "link": ""
+  },
+  {
+    "title": "Continuous Learning IDS",
+    "subtitle": "Concept-drift-resistant intrusion detection",
+    "description": "Designing an intrusion detection pipeline for high-volume network telemetry that adapts to shifting attack patterns without full model retraining.",
+    "category": "SOC",
+    "team": "Team of 4",
+    "status": "In progress",
+    "tags": ["Python", "ML", "IDS"],
+    "link": ""
+  },
+  {
+    "title": "Python CI Security Pipeline",
+    "subtitle": "DevSecOps with Jenkins + Trivy",
+    "description": "A CI/CD pipeline for a Python app that runs Trivy security scans in Jenkins, so vulnerable dependencies and images are caught before they ship.",
+    "category": "DevSecOps",
+    "team": "Personal",
+    "status": "Completed",
+    "tags": ["Jenkins", "Trivy", "Python", "CI/CD"],
+    "link": "https://github.com/Bhogeshwari-Ramesh-Pawar/python-ci-security-project"
+  },
+  {
+    "title": "Containerized DevOps Tools Lab",
+    "subtitle": "Self-hosted toolchain on Docker",
+    "description": "Deployed Jenkins, SonarQube, MySQL, Nginx and Ollama as Docker containers, configuring ports, volumes and services to work together.",
+    "category": "DevSecOps",
+    "team": "Personal",
+    "status": "Completed",
+    "tags": ["Docker", "Linux", "SonarQube"],
+    "link": ""
+  },
+  {
+    "title": "Home SOC Lab",
+    "subtitle": "Threat detection playground",
+    "description": "A self-hosted lab that simulates real-world threat detection, with custom detection rules and dashboards that flag anomalous traffic.",
+    "category": "SOC",
+    "team": "Team of 2",
+    "status": "Completed",
+    "tags": ["Wazuh", "ELK", "Suricata"],
+    "link": ""
+  }
+]

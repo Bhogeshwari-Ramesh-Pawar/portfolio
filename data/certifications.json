@@ -1,0 +1,18 @@
+[
+  {
+    "issuer": "Palo Alto Networks",
+    "items": ["Certified XSOAR Engineer", "Certified Cybersecurity Practitioner"]
+  },
+  {
+    "issuer": "Fortinet",
+    "items": ["Certified Fundamentals in Cybersecurity", "NSE 1", "NSE 2", "Getting Started in Cybersecurity 3.0", "Introduction to the Threat Landscape 3.0"]
+  },
+  {
+    "issuer": "Cisco Networking Academy",
+    "items": ["Ethical Hacker", "Cyber Threat Management", "Network Defense", "Introduction to Cybersecurity", "Python Essentials 1", "Data Analytics Essentials"]
+  },
+  {
+    "issuer": "DPDPA.com",
+    "items": ["Certified Fundamentals in DPDPA (scored 89%)"]
+  }
+]

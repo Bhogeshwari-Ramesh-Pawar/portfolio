@@ -1,0 +1,51 @@
+[
+  {
+    "role": "Software Engineer Trainee",
+    "company": "Sciqus Infotech Pvt Ltd",
+    "location": "Pune",
+    "period": "Jun 2026 – Jul 2026",
+    "points": [
+      "Performed daily VAPT on the company's core product and identified 20+ vulnerabilities, from informational to critical severity.",
+      "Sped up discovery with Bash scripting, security tools and LLM-assisted recon, manually validating every finding.",
+      "Submitted daily reports with severity classification."
+    ],
+    "tags": ["VAPT", "Burp Suite", "Bash"]
+  },
+  {
+    "role": "SOC Engineering Intern & DPDPA Compliance Associate",
+    "company": "Binqrypt Securities",
+    "location": "Remote",
+    "period": "Jan 2026 – May 2026",
+    "points": [
+      "Led a team of 3–4 interns building an enterprise-level SOC lab from scratch, covering log ingestion, detection and alerting.",
+      "Built unified log pipelines across ELK, Wazuh and Graylog, with real-time telemetry from CloudSEK, GTB DLP and miniOrange IAM.",
+      "Developed SOAR playbooks and tuned Suricata/Snort IDS/IPS rules to detect and respond to network threats.",
+      "Configured Fortinet FortiGate firewalls and Cloudflare WAF; secured AWS workloads with IAM and security groups.",
+      "Mapped technical controls to DPDPA 2023 and ran a gap analysis (consent, retention, breach notification, DPO governance) for management."
+    ],
+    "tags": ["SOC", "XSOAR", "Suricata", "DPDPA", "AWS"]
+  },
+  {
+    "role": "SOC Analyst Intern",
+    "company": "Cyber Secured India",
+    "location": "Pune",
+    "period": "Jun 2025 – Aug 2025",
+    "points": [
+      "Triaged and investigated real-time alerts in a live environment.",
+      "Deployed Wazuh and ELK for centralized log monitoring; used Wazuh agents for file integrity monitoring, rootkit detection and vulnerability assessment.",
+      "Built custom Kibana dashboards combining multiple data sources."
+    ],
+    "tags": ["Wazuh", "ELK", "Kibana"]
+  },
+  {
+    "role": "Research & Data Analytics Intern",
+    "company": "ARC Solutions",
+    "location": "Pune",
+    "period": "Jun 2024 – Aug 2024",
+    "points": [
+      "Analyzed large geospatial datasets with Google Earth Engine.",
+      "Turned findings into structured technical reports under mentor guidance."
+    ],
+    "tags": ["Data analysis", "Research"]
+  }
+]
